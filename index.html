@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Online Registration Form</title>
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<style>
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+  body {
+font-family: "Poppins", sans-serif;
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+background: linear-gradient(135deg, #667eea, #764ba2);
+padding: 20px;
+}
+.wrapper {
+max-width: 900px;
+width: 100%;
+display: grid;
+grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+gap: 30px;
+align-items: stretch;
+}
+.card {
+background: rgba(255, 255, 255, 0.12);
+border-radius: 18px;
+padding: 28px 26px;
+backdrop-filter: blur(14px);
+box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+color: #fff;
+}
+.card-header {
+margin-bottom: 18px;
+}
+.card-header h1 {
+font-size: 26px;
+margin-bottom: 6px;
+}
+.card-header p {
+font-size: 14px;
+opacity: 0.9;
+}
+.highlight-pill {
+display: inline-flex;
+align-items: center;
+gap: 6px;
+padding: 4px 10px;
+border-radius: 999px;
+background: rgba(0, 0, 0, 0.18);
+font-size: 11px;
+  margin-bottom: 10px;
+}
+.highlight-dot {
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: #4ade80;
+}
+form .field-group {
+margin-bottom: 14px;
+}
+label {
+display: block;
+font-size: 13px;
+margin-bottom: 4px;
+opacity: 0.95;
+}
+.input-wrapper {
+position: relative;
+}
+input, select {
+  width: 100%;
+padding: 11px 12px;
+border-radius: 10px;
+border: 1px solid rgba(255, 255, 255, 0.45);
+background: rgba(0, 0, 0, 0.12);
+color: #fff;
+font-size: 14px;
+outline: none;
+transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+input::placeholder {
+color: rgba(255, 255, 255, 0.6);
+}
+select {
+appearance: none;
+-webkit-appearance: none;
+-moz-appearance: none;
+background-image: url("data:image/svg+xml,%3Csvg width='10' height='7' viewBox='0 0 10 7' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+background-repeat: no-repeat;
+background-position: right 12px center;
+background-size: 10px;
+}
+  input:focus, select:focus {
+border-color: #a5b4fc;
+box-shadow: 0 0 0 1px rgba(196, 181, 253, 0.6);
+background: rgba(0, 0, 0, 0.2);
+}
+.error-text {
+font-size: 11px;
+color: #fecaca;
+margin-top: 4px;
+min-height: 14px;
+}
+.btn-submit {
+margin-top: 8px;
+width: 100%;
+border: none;
+border-radius: 999px;
+padding: 11px 12px;
+font-size: 15px;
+font-weight: 500;
+cursor: pointer;
+background: linear-gradient(135deg, #f97316, #facc15);
+color: #111827;
+display: inline-flex;
+  items: center;
+justify-content: center;
+gap: 6px;
+transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+.btn-submit:hover {
+transform: translateY(-1px);
+box-shadow: 0 12px 22px rgba(0, 0, 0, 0.25);
+filter: brightness(1.04);
+}
+.btn-submit:active {
+transform: translateY(0);
+box-shadow: none;
+}
+.btn-submit span.icon {
+font-size: 16px;
+}
+/* Right card – info */
+.side-card h2 {
+font-size: 20px;
+margin-bottom: 12px;
+}
+  .side-list {
+list-style: none;
+}
+.side-list li {
+display: flex;
+align-items: flex-start;
+gap: 10px;
+font-size: 13px;
+margin-bottom: 10px;
+line-height: 1.4;
+}
+.side-badge {
+width: 22px;
+height: 22px;
+border-radius: 50%;
+flex-shrink: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 13px;
+background: rgba(0, 0, 0, 0.2);
+}
+  .small-tag {
+display: inline-block;
+margin-top: 8px;
+padding: 4px 9px;
+border-radius: 999px;
+background: rgba(15, 23, 42, 0.55);
+font-size: 11px;
+opacity: 0.9;
+}
+@media (max-width: 780px) {
+.wrapper {
+grid-template-columns: 1fr;
+}
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+<!-- LEFT: FORM CARD -->
+<div class="card">
+<div class="card-header">
+<div class="highlight-pill">
+<span class="highlight-dot"></span>
+<span>Secure • Fast • Simple</span>
+</div>
+<h1>Online Registration</h1>
+<p>Fill in your details to complete your application. It takes less than a minute.</p>
+</div>
+<form id="registrationForm" action="submit.php" method="POST" novalidate>
+<!-- Full Name -->
+<div class="field-group">
+<label for="fullname">Full Name</label>
+<div class="input-wrapper">
+<input type="text" id="fullname" name="fullname" placeholder="e.g. Shreya Sharma" required>
+</div>
+<div class="error-text" id="error-fullname"></div>
+</div>
+<!-- Email -->
+<div class="field-group">
+<label for="email">Email Address</label>
+<div class="input-wrapper">
+<input type="email" id="email" name="email" placeholder="e.g. you@example.com" required>
+</div>
+<div class="error-text" id="error-email"></div>
+</div>
+<!-- Phone -->
+<div class="field-group">
+<label for="phone">Phone Number</label>
+<div class="input-wrapper">
+<input type="tel" id="phone" name="phone" placeholder="10-digit mobile number" required>
+</div>
+<div class="error-text" id="error-phone"></div>
+</div>
+<!-- Course -->
+<div class="field-group">
+<label for="course">Select Course</label>
+<div class="input-wrapper">
+<select id="course" name="course" required>
+<option value="">-- Choose a course --</option>
+<option value="Web Development">Web Development</option>
+<option value="Python Programming">Python Programming</option>
+<option value="Data Science">Data Science</option>
+<option value="Cloud Computing">Cloud Computing</option>
+</select>
+</div>
+<div class="error-text" id="error-course"></div>
+</div>
+<!-- Submit -->
+  <button type="submit" class="btn-submit">
+<span class="icon"> </span>
+<span>Submit Application</span>
+</button>
+</form>
+</div>
+<!-- RIGHT: INFO / PREVIEW CARD -->
+<div class="card side-card">
+<h2>Why register online?</h2>
+<ul class="side-list">
+<li>
+<div class="side-badge">1</div>
+<div>
+<strong>Instant confirmation</strong><br>
+See your submitted details immediately in a clean summary view.
+</div>
+</li>
+<li>
+<div class="side-badge">2</div>
+<div>
+<strong>No page refresh errors</strong><br>
+Client-side validation catches common mistakes like invalid email or short phone numbers.
+</div>
+</li>
+<li>
+<div class="side-badge">3</div>
+<div>
+<strong>Responsive layout</strong><br>
+Works nicely on laptops as well as mobile screens.
+</div>
+</li>
+</ul>
+<span class="small-tag">Tip: Use a valid email and a 10-digit mobile number.</span>
+</div>
+</div>
+<script>
+// jQuery form validation
+$(function () {
+$("#registrationForm").on("submit", function (e) {
+let isValid = true;
+// Clear old errors
+$(".error-text").text("");
+const fullName = $("#fullname").val().trim();
+const email = $("#email").val().trim();
+const phone = $("#phone").val().trim();
+const course = $("#course").val().trim();
+  // Name validation
+if (fullName.length < 3) {
+$("#error-fullname").text("Please enter at least 3 characters.");
+isValid = false;
+}
+// Email validation (simple pattern)
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if (!emailPattern.test(email)) {
+$("#error-email").text("Please enter a valid email address.");
+isValid = false;
+}
+// Phone validation (10 digits)
+const phonePattern = /^[0-9]{10}$/;
+if (!phonePattern.test(phone)) {
+$("#error-phone").text("Phone number must be exactly 10 digits.");
+isValid = false;
+}
+// Course validation
+if (course === "") {
+$("#error-course").text("Please select a course.");
+isValid = false;
+}
+  if (!isValid) {
+e.preventDefault(); // stop form from submitting if invalid
+}
+});
+});
+</script>
+</body>
+</html>
